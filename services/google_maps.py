@@ -1,11 +1,14 @@
 import requests
-import os
-from dotenv import load_dotenv
 
-load_dotenv()
-GOOGLE_MAPS_API_KEY = os.getenv("GOOGLE_MAPS_API_KEY")
+def get_directions(source, destination):
+    api_key = "AIzaSyAg3FyW8z4g-XJQhwoH-pbC2tlFa8c7Crk"
+    url = "https://maps.googleapis.com/maps/api/directions/json"
+    params = {
+        "origin": source,
+        "destination": destination,
+        "key": api_key
+    }
 
-def get_traffic_data(source, destination):
-    url = f"https://maps.googleapis.com/maps/api/directions/json?origin={source}&destination={destination}&key={GOOGLE_MAPS_API_KEY}"
-    response = requests.get(url)
+    response = requests.get(url, params=params)
+    response.raise_for_status()
     return response.json()
