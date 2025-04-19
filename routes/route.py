@@ -22,10 +22,10 @@ def handle_get_directions():
 @api_routes.route("/show_map")
 def show_map():
     try:
-        # source = request.args.get("source")
-        # destination = request.args.get("destination")
-        source = "Mumbai"
-        destination = "Pune"
+        source = request.args.get("source")
+        destination = request.args.get("destination")
+        # source =  "Mumbai"
+        # destination = "Pune"
         if not source or not destination:
                 return jsonify({"error": "Missing source or destination"}), 400
         route_data = get_directions(source, destination)
