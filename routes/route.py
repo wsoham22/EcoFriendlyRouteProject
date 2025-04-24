@@ -18,8 +18,8 @@ def handle_get_directions():
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
-@api_routes.route("/get_all_routes", methods=["GET"])
-def handle_get_directions_all():
+@api_routes.route("/get_ecofriendly_route", methods=["GET"])
+def handle_get_directionss():
     try:
         source = request.args.get("source")
         destination = request.args.get("destination")
@@ -27,7 +27,7 @@ def handle_get_directions_all():
         if not source or not destination:
             return jsonify({"error": "Missing source or destination"}), 400
 
-        directions = get_Alldirections(source, destination)
+        directions = get_directions(source, destination)
         return jsonify({"route": directions}), 200
 
     except Exception as e:
