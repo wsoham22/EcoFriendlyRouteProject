@@ -1,6 +1,6 @@
 from flask import Blueprint, request, jsonify, render_template, json
-from services.google_maps import get_directions
-import pprint
+from services.google_maps import get_directions,get_air_quality,get_SO2_levels
+import os
 # Create Blueprint
 api_routes = Blueprint("api_routes", __name__)
 
@@ -15,6 +15,35 @@ def handle_get_directions():
 
         directions = get_directions(source, destination)
         return jsonify({"route": directions}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+@api_routes.route('/get_aqi_by_coords', methods=['POST'])
+def get_aqi_by_coords():
+    try:
+        lat = request.args.get("lat")
+        lng = request.args.get("lng")
+
+        if not lat or not lng:
+            return jsonify({"error": "Missing lat or lng"}), 400
+
+        data = get_air_quality(float(lat), float(lng))
+        return jsonify({"air_quality": data}), 200
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
+@api_routes.route('/get_so2', methods=['GET'])
+def get_SO2():
+    try:
+        lat = request.args.get("lat")
+        lng = request.args.get("lng")
+
+        if not lat or not lng:
+            return jsonify({"error": "Missing lat or lng"}), 400
+
+        data = get_SO2_levels(float(lat), float(lng))
+        return jsonify({"air_quality": data}), 200
 
     except Exception as e:
         return jsonify({"error": str(e)}), 500
