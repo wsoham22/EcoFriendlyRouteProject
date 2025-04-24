@@ -18,6 +18,23 @@ def get_directions(source, destination):
     params = {
         "origin": source,
         "destination": destination,
+        "key": api_key,
+        "departure_time": "now"
+    }
+
+    response = requests.get(url, params=params)
+    response.raise_for_status()
+    return response.json()
+
+def get_Alldirections(source, destination):
+    api_key = "AIzaSyAg3FyW8z4g-XJQhwoH-pbC2tlFa8c7Crk"
+    url = "https://maps.googleapis.com/maps/api/directions/json"
+    params = {
+        "origin": source,
+        "destination": destination,
+        "alternatives": "true",
+        "departure_time": "now",
+        "mode": "driving",
         "key": api_key
     }
 
