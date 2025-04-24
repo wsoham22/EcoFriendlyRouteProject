@@ -19,7 +19,7 @@ def handle_get_directions():
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 @api_routes.route("/get_all_routes", methods=["GET"])
-def handle_get_directions():
+def handle_get_directions_all():
     try:
         source = request.args.get("source")
         destination = request.args.get("destination")
